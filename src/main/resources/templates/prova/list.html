@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestionar Proves</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<h1>Llistat de Proves</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Nom</th>
+    <th>Descripció</th>
+    <th>Tipus</th>
+    <th>Data</th>
+    <th>Classificacions</th>
+    <th>Nadadors</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="prova: ${proves}">
+    <td th:text="${prova.nom}"></td>
+    <td th:text="${prova.descripcio}"></td>
+    <td th:text="${prova.tipus}"></td>
+    <td th:text="${#temporals.format(prova.data,'dd/MM/yyyy')}"></td>
+    <td><a th:href="@{/classificacio/addPerProva/{nom}(nom=${prova.nom})}">Gestionar classificacions</a>
+    </td>
+    <td><a th:href="@{/classificacio/perpais/{nom}(nom=${prova.nom})}">Per país</a>
+    </td>
+    <td><a th:href="@{/prova/update/{nom}(nom=${prova.nom})}">Editar prova</a>
+    </td>
+    <td><a th:href="@{/prova/delete/{nom}(nom=${prova.nom})}">Borrar prova</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a href="add">Afegir prova</a>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gestionar Nadadors</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/></head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+<body>
+<h1>Llista de Nadadors</h1>
+<div th:if="${#lists.isEmpty(nadadors)}">
+    No hi ha nadadors en la base de dades
+</div>
+<div th:replace="fragments/nav"></div>
+<table th:unless="${#lists.isEmpty(nadadors)}" class="table table-striped">
+    <thead>
+    <tr>
+        <th>Num. Federat</th>
+        <th>Nom</th>
+        <th>Pais</th>
+        <th>Edat</th>
+        <th>Gènere</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="nadador: ${#lists.sort(nadadors, metodecomparador)}">
+        <td th:text="${nadador.numFederat}"></td>
+        <td th:text="${nadador.nom}"
+            th:class="${#strings.equals(nadador.genere, 'Femeni')} ?
+            font-weight-bold : font-italic"></td>
+        <td th:text="${nadador.pais}"></td>
+        <td th:text="${nadador.edat}"></td>
+        <td th:text="${nadador.genere}"></td>
+        <td><a th:href="@{/nadador/update/{nom}(nom=${nadador.nom})}" class="btn btn-warning" role="button">Edita</a>
+        </td>
+        <td><a th:href="@{/nadador/delete/{nom}(nom=${nadador.nom})}" class="btn btn-danger" role="button">Esborra</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="add" class="btn btn-primary" role="button">Afegeix nadador</a>
+</body>
+</html>

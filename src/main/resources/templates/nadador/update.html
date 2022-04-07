@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar dades nadador</title>
+    <link rel="stylesheet" type="text/css" href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<h2>Noves dades</h2>
+<form action="#" th:action="@{/nadador/update}"
+      th:object="${nadador}" method="post">
+    <table>
+        <tr>
+            <td><label>Nom</label></td>
+            <td><input type="text" th:field="*{nom}" readonly="readonly"/></td>
+        </tr>
+        <tr>
+            <td><label>Num. Federat</label></td>
+            <td><input type="text" th:field="*{numFederat}" maxlength="10"/></td>
+            <td th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error"/>
+        </tr>
+        <tr>
+            <td><label>Pais</label></td>
+            <td><input type="text" th:field="*{pais}" maxlength="20"/></td>
+            <td th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error"/>
+        </tr>
+        <tr>
+            <td><label>Edat</label></td>
+            <td><input type="number" th:field="*{edat}" /></td>
+            <td th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="error"/>
+        </tr>
+        <tr>
+            <td><label>Genere</label></td>
+            <td> <select class="form_control" type="text" th:field="*{genere}">
+                <option th:each="gendervalue : ${genderList}"
+                        th:value="${gendervalue}"
+                        th:text="${gendervalue}"></option>
+            </select>
+            </td>
+            <td th:if="${#fields.hasErrors('genere')}" th:errors="*{genere}"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Actualitza nadador" /></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
